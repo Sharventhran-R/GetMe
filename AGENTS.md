@@ -23,3 +23,53 @@
 3. **Mandatory Tests**: Run the appropriate single-test or typecheck command before marking a task as complete.
 4. **Session Logging**: Update `AGENT_MEMORY.md` under `# Session Log` after completing substantive milestones.
 5. **No Global Dependencies**: Use `.venv\Scripts\python.exe` for all tool executions.
+6. **Manual Git Operations**: Never execute `git` commands autonomously (like `git add`, `git commit`). Always ask the user to perform them manually.
+
+## Git Ownership & Repository Safety
+
+The AI agent MUST NOT perform any Git operations that modify repository history or staging state.
+
+Git is manually controlled by the developer.
+
+The agent MUST NOT:
+
+- run `git init`
+- run `git add`
+- run `git commit`
+- run `git push`
+- run `git pull`
+- run `git merge`
+- run `git rebase`
+- run `git reset`
+- run `git checkout`
+- run `git switch`
+- create or modify branches
+- modify Git history
+- stage or unstage files
+- create tags
+- amend commits
+- force push
+- delete branches
+
+The agent MAY use read-only Git commands when necessary for development context or verification, such as:
+
+- `git status`
+- `git diff`
+- `git diff -- <file>`
+- `git log`
+- `git show`
+- `git branch --show-current`
+
+Read-only Git commands must not modify repository state.
+
+The agent must NEVER automatically commit after completing a task.
+
+After completing a milestone, the agent should instead report:
+
+1. Files changed
+2. Summary of changes
+3. Tests/verification performed
+4. Current `git diff` status if inspected
+5. Suggested commit message
+
+The developer will manually review, stage, and commit the changes.
